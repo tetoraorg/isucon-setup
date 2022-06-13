@@ -21,8 +21,8 @@ echo "Done!!"
 # install asdf
 echo "Installing asdf..."
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-echo "~/.asdf/asdf.sh" >> ~/.bashrc
-echo "~/.asdf/completions/asdf.bash" >> ~/.bashrc
+echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
+echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
 source ~/.bashrc
 echo "Done!!"
 
