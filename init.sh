@@ -9,13 +9,13 @@ read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_RE
 
 # update & upgrade apt packages
 echo "Updating & upgrading apt packages..."
-sudo apt update -y
-sudo apt upgrade -y
+apt update -y
+apt upgrade -y
 echo "Done!!"
 
 # install apt tools
 echo "Installing apt tools..."
-sudo apt install -y percona-toolkit htop git curl wget
+apt install -y percona-toolkit htop git curl wget
 echo "Done!!"
 
 # install asdf
