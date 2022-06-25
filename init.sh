@@ -30,13 +30,16 @@ echoe "Done!!"
 # install asdf
 echoe "Installing asdf..."
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-echo "source ~/.asdf/asdf.sh" >> ~/.bashrc \
-&& echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc \
-&& source ~/.bashrc
+echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
+echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
+source ~/.bashrc
 echoe "Done!!"
 
 # install golang
 echoe "Installing golang..."
+if ! type asdf >/dev/null 2>&1; then
+  PATH=$HOME/.asdf/bin:PATH
+fi
 asdf plugin add golang
 asdf install golang $GOLANG_VERSION
 asdf global golang $GOLANG_VERSION
