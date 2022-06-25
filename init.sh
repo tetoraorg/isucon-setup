@@ -18,6 +18,11 @@ echo "Installing apt tools..."
 apt install -y percona-toolkit htop git curl wget
 echo "Done!!"
 
+# Add commands to $PATH
+echo "Adding commands to \$PATH..."
+echo "export PATH=\$PATH:$PWD/bin" >> ~/.bashrc
+echo "Done!!"
+
 # install asdf
 echo "Installing asdf..."
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
@@ -34,9 +39,8 @@ asdf global golang $GOLANG_VERSION
 echo "Done!!"
 
 # Add commands to $PATH
-echo "Adding commands to $PATH..."
+echo "Adding commands to \$PATH..."
 echo "export PATH=\$PATH:$PWD/bin" >> ~/.bashrc
-source ~/.bashrc
 echo "Done!!"
 
 # sync public keys
