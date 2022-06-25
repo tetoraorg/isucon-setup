@@ -38,7 +38,7 @@ echoe "Done!!"
 # install golang
 echoe "Installing golang..."
 if ! type asdf >/dev/null 2>&1; then
-  PATH=$HOME/.asdf/bin:PATH
+  PATH=$HOME/.asdf/bin:$PATH
 fi
 asdf plugin add golang
 asdf install golang $GOLANG_VERSION
