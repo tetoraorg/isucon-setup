@@ -42,11 +42,6 @@ asdf install golang $GOLANG_VERSION
 asdf global golang $GOLANG_VERSION
 echoe "Done!!"
 
-# Add commands to $PATH
-echoe "Adding commands to \$PATH..."
-echo "export PATH=\$PATH:$PWD/bin" >> ~/.bashrc
-echoe "Done!!"
-
 # sync public keys
 echoe "Syncing public keys..."
 mkdir -p ~/.ssh
@@ -66,4 +61,4 @@ cd $PROJECT_ROOT \
   && git init \
   && git remote add origin $PROJECT_REPO_URL
 echoe "Done!!"
-echo "Please push your code to Github."
+echoe "Please push your code to Github."
