@@ -26,9 +26,9 @@ echo "Done!!"
 # install asdf
 echo "Installing asdf..."
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
-echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
-source ~/.bashrc
+echo "source ~/.asdf/asdf.sh" >> ~/.bashrc \
+&& echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc \
+&& source ~/.bashrc
 echo "Done!!"
 
 # install golang
