@@ -1,0 +1,3 @@
+#!/bin/bash
+
+fluent-bit -c /etc/fluent-bit/fluent-bit.conf

@@ -19,12 +19,19 @@ echoe "Done!!"
 
 # install apt tools
 echoe "Installing apt tools..."
-apt install -y percona-toolkit htop git curl wget
+apt install -y build-essential percona-toolkit htop git curl wget sudo vim
+echoe "Done!!"
+
+# clone git repositories
+echoe "Cloning git repositories..."
+git clone git@github.com:fluent/fluent-bit.git /tmp/fluent-bit
+git clone git@github.com:Ras96/isucon-dashboard.git /tmp/isucon-dashboard
+git clone git@github.com:Ras96/isucon-setup.git /tmp/isucon-setup
 echoe "Done!!"
 
 # Add commands to $PATH
-echoe "Adding commands to \$PATH..."
-echo "export PATH=\$PATH:$PWD/bin" >> ~/.bashrc
+echoe "Adding commands for isucon..."
+mv /tmp/isucon-setup/bin/* /usr/local/bin
 echoe "Done!!"
 
 # install asdf
@@ -43,6 +50,20 @@ fi
 asdf plugin add golang
 asdf install golang $GOLANG_VERSION
 asdf global golang $GOLANG_VERSION
+echoe "Done!!"
+
+# install fluent-bit
+echoe "Installing fluent-bit..."
+cd /tmp/fluent-bit/build
+cmake ../ -DFLB_CONFIG_YAML=Off
+make mv /tmp/fluent-bit/bin/* /usr/local/bin
+echoe "Done!!"
+
+# run fluent-bit as a daemon
+echoe "Running fluent-bit as a daemon"
+mkdir -p /etc/fluent-bit
+mv /tmp/isucon-dashboard/client/fluent-bit/* /etc/fluent-bit
+restart-fluent-bit
 echoe "Done!!"
 
 # sync public keys
