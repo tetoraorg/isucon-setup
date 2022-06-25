@@ -25,8 +25,8 @@ echoe "Done!!"
 # clone git repositories
 echoe "Cloning git repositories..."
 git clone git@github.com:fluent/fluent-bit.git /tmp/fluent-bit
-git clone git@github.com:Ras96/isucon-dashboard.git /tmp/isucon-dashboard
-git clone git@github.com:Ras96/isucon-setup.git /tmp/isucon-setup
+git clone git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
+git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup
 echoe "Done!!"
 
 # Add commands to $PATH
