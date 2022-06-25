@@ -35,7 +35,7 @@ echo "Done!!"
 
 # Add commands to $PATH
 echo "Adding commands to $PATH..."
-echo "export PATH=$PATH:$PWD/bin" >> ~/.bashrc
+echo "export PATH=$$PATH:$PWD/bin" >> ~/.bashrc
 source ~/.bashrc
 echo "Done!!"
 
