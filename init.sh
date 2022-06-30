@@ -25,7 +25,7 @@ echoe "Done!!"
 
 # Add commands to $PATH
 echoe "Adding commands for isucon..."
-mv /tmp/isucon-setup/bin/* /usr/local/bin
+cp /tmp/isucon-setup/bin/* /usr/local/bin
 echoe "Done!!"
 
 # install asdf
