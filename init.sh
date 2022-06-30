@@ -58,8 +58,8 @@ echoe "Done!!"
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
 git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
-sudo mkdir -p /etc/fluent-bit
-sudo cp /tmp/isucon-dashboard/client/fluent-bit/* /etc/fluent-bit
+sudo mkdir -p /usr/local/etc/fluent-bit
+sudo cp /tmp/isucon-dashboard/client/fluent-bit/* /usr/local/etc/fluent-bit
 restart-fluent-bit
 echoe "Done!!"
 
