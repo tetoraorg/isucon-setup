@@ -11,16 +11,12 @@ echoe() {
 read -p "project root (ex. /home/isucon/webapp) > " PROJECT_ROOT
 read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_REPO_URL
 
-# update & upgrade apt packages
-echoe "Updating & upgrading apt packages..."
-apt update -y
-apt upgrade -y
-echoe "Done!!"
-
 # install apt tools
-echoe "Installing apt tools..."
-apt install -y build-essential percona-toolkit htop git curl wget sudo vim
-echoe "Done!!"
+if $args[0] == "-u"; then
+  echoe "Installing apt tools..."
+  apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake
+  echoe "Done!!"
+fi
 
 # clone git repositories
 echoe "Cloning git repositories..."
@@ -53,10 +49,16 @@ asdf global golang $GOLANG_VERSION
 echoe "Done!!"
 
 # install fluent-bit
+# TODO: https://github.com/fluent/fluent-bit/issues/5628
 echoe "Installing fluent-bit..."
-cd /tmp/fluent-bit/build
-cmake ../ -DFLB_CONFIG_YAML=Off
-make mv /tmp/fluent-bit/bin/* /usr/local/bin
+if $(cat /etc/issue | awk '{print $2}') == "22.04"; then
+  cd /tmp/fluent-bit/build
+  cmake ../ -DFLB_CONFIG_YAML=Off
+  make
+  mv /tmp/fluent-bit/bin/* /usr/local/bin
+else
+  curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
+fi
 echoe "Done!!"
 
 # run fluent-bit as a daemon
