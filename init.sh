@@ -13,7 +13,7 @@ read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_RE
 
 # install apt tools
 echoe "Installing apt tools..."
-apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake
+apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake flex bison
 echoe "Done!!"
 
 # clone git repositories
@@ -53,7 +53,7 @@ if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
-  mv /tmp/fluent-bit/bin/* /usr/local/bin
+  cp /tmp/fluent-bit/build/bin/fluent-bit /usr/local/bin
 else
   curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
 fi
