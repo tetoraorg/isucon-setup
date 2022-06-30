@@ -13,7 +13,7 @@ read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_RE
 
 # install apt tools
 echoe "Installing apt tools..."
-apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake flex bison
+sudo apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake flex bison
 echoe "Done!!"
 
 # clone git repositories
@@ -25,7 +25,7 @@ echoe "Done!!"
 
 # Add commands to $PATH
 echoe "Adding commands for isucon..."
-cp /tmp/isucon-setup/bin/* /usr/local/bin
+sudo cp /tmp/isucon-setup/bin/* /usr/local/bin
 echoe "Done!!"
 
 # install asdf
@@ -53,7 +53,7 @@ if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
-  cp /tmp/fluent-bit/build/bin/fluent-bit /usr/local/bin
+  sudo cp /tmp/fluent-bit/build/bin/fluent-bit /usr/local/bin
 else
   curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
 fi
@@ -61,8 +61,8 @@ echoe "Done!!"
 
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
-mkdir -p /etc/fluent-bit
-mv /tmp/isucon-dashboard/client/fluent-bit/* /etc/fluent-bit
+sudo mkdir -p /etc/fluent-bit
+sudo cp /tmp/isucon-dashboard/client/fluent-bit/* /etc/fluent-bit
 restart-fluent-bit
 echoe "Done!!"
 

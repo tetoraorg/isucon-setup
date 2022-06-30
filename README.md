@@ -1,7 +1,7 @@
 # isucon-setup
 
 ```sh
-apt update -y && apt upgrade -y && apt install git -y
+sudo apt update -y && sudo apt upgrade -y && sudo apt install git -y
 ssh-keygen && cat ~/.ssh/id_rsa.pub
 # and register the public key to github
 ```
