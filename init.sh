@@ -12,11 +12,9 @@ read -p "project root (ex. /home/isucon/webapp) > " PROJECT_ROOT
 read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_REPO_URL
 
 # install apt tools
-if $args[0] == "-u"; then
-  echoe "Installing apt tools..."
-  apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake
-  echoe "Done!!"
-fi
+echoe "Installing apt tools..."
+apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake
+echoe "Done!!"
 
 # clone git repositories
 echoe "Cloning git repositories..."
