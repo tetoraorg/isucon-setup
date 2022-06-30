@@ -49,7 +49,7 @@ echoe "Done!!"
 # install fluent-bit
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 echoe "Installing fluent-bit..."
-if $(cat /etc/issue | awk '{print $2}') == "22.04"; then
+if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
