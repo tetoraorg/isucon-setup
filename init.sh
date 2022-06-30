@@ -13,14 +13,7 @@ read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_RE
 
 # install apt tools
 echoe "Installing apt tools..."
-sudo apt install -y build-essential percona-toolkit htop git curl wget sudo vim cmake flex bison
-echoe "Done!!"
-
-# clone git repositories
-echoe "Cloning git repositories..."
-git clone git@github.com:fluent/fluent-bit.git /tmp/fluent-bit
-git clone git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
-git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup
+sudo apt install -y build-essential percona-toolkit htop git curl wget vim
 echoe "Done!!"
 
 # Add commands to $PATH
@@ -50,17 +43,21 @@ echoe "Done!!"
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 echoe "Installing fluent-bit..."
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
+  git clone --depth 1 git@github.com:fluent/fluent-bit.git /tmp/fluent-bit
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
   sudo cp /tmp/fluent-bit/build/bin/fluent-bit /usr/local/bin
 else
+  sudo apt install -y cmake flex bison
   curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
+  sudo cp /opt/fluent-bit/bin/fluent-bit /usr/local/bin
 fi
 echoe "Done!!"
 
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
+git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
 sudo mkdir -p /etc/fluent-bit
 sudo cp /tmp/isucon-dashboard/client/fluent-bit/* /etc/fluent-bit
 restart-fluent-bit
