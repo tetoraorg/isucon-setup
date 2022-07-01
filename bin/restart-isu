@@ -16,8 +16,8 @@ if [ -s /var/log/mysql/slow.log ]; then
   sudo mv /var/log/mysql/slow.log ~/log/mysql/slow.log_$(date "+%Y%m%d-%H%M%S")
 fi
 
-slow-on
-
 sudo systemctl restart nginx
 sudo systemctl restart mysql
 sudo systemctl restart $SERVICE_NAME
+
+slow-on
