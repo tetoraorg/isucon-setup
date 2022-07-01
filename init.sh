@@ -75,7 +75,7 @@ fdir=/tmp/isucon-dashboard/client/fluent-bit
 cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
 sudo mkdir -p /etc/fluent-bit
 sudo cp $fdir/* /etc/fluent-bit
-start-fluent-bit
+restart-fluent-bit
 echoe "Done!!"
 
 # sync public keys
