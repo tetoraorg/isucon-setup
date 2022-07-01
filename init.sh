@@ -10,6 +10,16 @@ echoe() {
 # read args
 read -p "project root (ex. /home/isucon/webapp) > " PROJECT_ROOT
 read -p "project repo url (ex. git@github.com:hoge/isuconXXq.git) > " PROJECT_REPO_URL
+read -p "app name (ex. isucondition) > " APP_NAME
+read -p "service name (ex. isucondition.go.service) > " SERVICE_NAME
+
+# add environment variables to ~/.bashrc
+echoe "Adding environment variables to ~/.bashrc"
+echo "export PROJECT_ROOT=$PROJECT_ROOT" >> ~/.bashrc
+echo "export PROJECT_REPO_URL=$PROJECT_REPO_URL" >> ~/.bashrc
+echo "export APP_NAME=$APP_NAME" >> ~/.bashrc
+echo "export SERVICE_NAME=$SERVICE_NAME" >> ~/.bashrc
+source ~/.bashrc
 
 # install apt tools
 echoe "Installing apt tools..."
@@ -83,3 +93,5 @@ cd $PROJECT_ROOT \
   && git remote add origin $PROJECT_REPO_URL
 echoe "Done!!"
 echoe "Please push your code to Github."
+
+source ~/.bashrc
