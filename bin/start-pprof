@@ -1,0 +1,3 @@
+#!/bin/bash
+
+go tool pprof -http=:6061 http://localhost:6060/debug/pprof/fgprof?seconds=60
