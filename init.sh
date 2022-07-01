@@ -60,7 +60,7 @@ echoe "Running fluent-bit as a daemon"
 git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
 sudo mkdir -p /usr/local/etc/fluent-bit
 sudo cp /tmp/isucon-dashboard/client/fluent-bit/* /usr/local/etc/fluent-bit
-restart-fluent-bit
+start-fluent-bit
 echoe "Done!!"
 
 # sync public keys
