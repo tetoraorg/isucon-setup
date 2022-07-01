@@ -32,7 +32,7 @@ echoe "Done!!"
 # Add commands to $PATH
 echoe "Adding commands for isucon..."
 mkdir -p $PROJECT_ROOT/bin
-sudo cp /tmp/isucon-setup/bin/* $PROJECT_ROOT/bin/
+cp /tmp/isucon-setup/bin/* $PROJECT_ROOT/bin/
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
 echoe "Done!!"
 
@@ -76,7 +76,7 @@ git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-da
 fdir=/tmp/isucon-dashboard/client/fluent-bit
 cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
 sudo rm -rf /etc/fluent-bit && sudo mkdir -p $PROJECT_ROOT/fluent-bit /etc/fluent-bit
-sudo cp $fdir/* $PROJECT_ROOT/fluent-bit
+cp $fdir/* $PROJECT_ROOT/fluent-bit
 sudo ln -s $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 echoe "Done!!"
