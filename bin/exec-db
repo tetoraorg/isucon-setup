@@ -5,4 +5,4 @@ DB_PASS=isucon
 DB_PORT=3306
 DB_HOST=localhost
 
-mysql -u$DB_USER -p$DB_PASS -h$DB_HOST -P$DB_PORT $@
+mysql -u$DB_USER -p$DB_PASS -h$DB_HOST -P$DB_PORT "$@"
