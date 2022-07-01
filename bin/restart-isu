@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -s /var/log/nginx/access.log ]; then
+  echo "moving nginx/access.log..."
+  if [ ! -d ~/log/nginx ]; then
+    mkdir -p ~/log/nginx
+  fi
+  sudo mv /var/log/nginx/access.log ~/log/nginx/access.log_$(date "+%Y%m%d-%H%M%S")
+fi
+
+if [ -s /var/log/mysql/slow.log ]; then
+  echo "moving mysql/slow.log..."
+  if [ ! -d ~/log/mysql ]; then
+    mkdir -p ~/log/mysql
+  fi
+  sudo mv /var/log/mysql/slow.log ~/log/mysql/slow.log_$(date "+%Y%m%d-%H%M%S")
+fi
+
+sudo systemctl restart nginx
+sudo systemctl restart mysql
+sudo systemctl restart $SERVICE_NAME
