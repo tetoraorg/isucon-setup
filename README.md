@@ -32,7 +32,12 @@ ssh-keygen && cat ~/.ssh/id_rsa.pub
 
 ```sh
 # after registration
+
 git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup
 cd /tmp/isucon-setup
 ./init.sh
+
+# or
+sudo apt install curl -y
+curl -s https://raw.githubusercontent.com/tetoraorg/isucon-setup/main/init.sh?token=hoge | bash
 ```
