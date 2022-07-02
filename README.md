@@ -15,6 +15,16 @@
 ### setup
 
 ```sh
+echo "export PROJECT_ROOT=hoge" >> ~/.bashrc
+echo "export PROJECT_REPO_URL=hoge" >> ~/.bashrc
+echo "export APP_NAME=hoge" >> ~/.bashrc
+echo "export SERVICE_NAME=hoge" >> ~/.bashrc
+echo "export DASHBOARD_HOST=hoge" >> ~/.bashrc
+```
+
+2台目以降の設定がしやすいようにメンバーに上のスクリプトを投げる
+
+```sh
 sudo apt update -y && sudo apt upgrade -y && sudo apt install git -y
 ssh-keygen && cat ~/.ssh/id_rsa.pub
 # and register the public key to github
