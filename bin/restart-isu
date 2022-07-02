@@ -21,3 +21,4 @@ sudo systemctl restart mysql
 sudo systemctl restart $SERVICE_NAME
 
 slow-on
+restart-fluent-bit
