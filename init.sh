@@ -92,7 +92,7 @@ echoe "Done!!"
 # initialize git
 echoe "Initializing git..."
 git config --global user.name "server"
-git config --global user.email "example@gmail.com"
+git config --global user.email "github-actions[bot]@users.noreply.github.com"
 git config --global core.editor "vim"
 git config --global push.default current
 git config --global init.defaultbranch main
