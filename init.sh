@@ -21,7 +21,9 @@ echoe "Done!!"
 # add commands to $PATH
 echoe "Adding commands for isucon..."
 mkdir -p $PROJECT_ROOT/bin
-cp /tmp/isucon-setup/bin/* $PROJECT_ROOT/bin/
+if [ ! -d ./git/logs/ ]; then
+  cp /tmp/isucon-setup/bin/* $PROJECT_ROOT/bin/
+fi
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
 echoe "Done!!"
 
@@ -61,11 +63,14 @@ echoe "Done!!"
 
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
-git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
-fdir=/tmp/isucon-dashboard/client/fluent-bit
-cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
-sudo rm -rf /etc/fluent-bit && sudo mkdir -p $PROJECT_ROOT/fluent-bit /etc/fluent-bit
-cp $fdir/* $PROJECT_ROOT/fluent-bit
+if [ ! -d ./git/logs/ ]; then
+  git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
+  fdir=/tmp/isucon-dashboard/client/fluent-bit
+  cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
+  sudo mkdir -p $PROJECT_ROOT/fluent-bit
+  cp $fdir/* $PROJECT_ROOT/fluent-bit
+fi
+sudo rm -rf /etc/fluent-bit && sudo mkdir -p /etc/fluent-bit
 sudo ln -s $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 echoe "Done!!"
