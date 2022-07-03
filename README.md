@@ -20,6 +20,7 @@ echo "export PROJECT_REPO_URL=hoge" >> ~/.bashrc
 echo "export APP_NAME=hoge" >> ~/.bashrc
 echo "export SERVICE_NAME=hoge" >> ~/.bashrc
 echo "export DASHBOARD_HOST=hoge" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 2台目以降の設定がしやすいようにメンバーに上のスクリプトを投げる
