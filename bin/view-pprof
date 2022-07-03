@@ -1,4 +1,6 @@
 #!/bin/bash
 
+set -e
+
 # view latest profile
 go tool pprof --no_browser --http=:6061 ~/pprof/$(ls ~/pprof/ -r -1 | head -n 1)

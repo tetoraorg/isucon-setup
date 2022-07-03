@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 
 sudo systemctl restart fluent-bit

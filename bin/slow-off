@@ -1,3 +1,5 @@
 #!/bin/bash
 
+set -e
+
 exec-db -e "set global slow_query_log = OFF;"
