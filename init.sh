@@ -13,12 +13,12 @@ if [ -z "PROJECT_ROOT" ]; then
   exit 1
 fi
 
-if [ ! -d /tmp/isucon-setup ]; then
-  if ! git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup >/dev/null 2>&1; then
-    echoe "Failed to clone isucon-setup"
-    exit 1
-  fi
-fi
+# if [ ! -d /tmp/isucon-setup ]; then
+#  if ! git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup >/dev/null 2>&1; then
+#    echoe "Failed to clone isucon-setup"
+#    exit 1
+#  fi
+# fi
 
 # install apt tools
 echoe "Installing apt tools..."
