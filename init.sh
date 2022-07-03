@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GOLANG_VERSION=1.18.3
+GOLANG_VERSION=1.16.5
 MEMBERS=(tesso57 toshi-pono Ras96)
 
 echoe() {
