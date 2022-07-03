@@ -8,7 +8,7 @@ echoe() {
 }
 
 source ~/.bashrc
-if [ -z "PROJECT_ROOT"]; then
+if [ -z "PROJECT_ROOT" ]; then
   echo "environment variables are not defined"
   exit 1
 fi
