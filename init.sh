@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 GOLANG_VERSION=1.16.5
 MEMBERS=(tesso57 toshi-pono Ras96)
 
@@ -8,7 +10,7 @@ echoe() {
 }
 
 source ~/.bashrc
-if [ -z "PROJECT_ROOT" ]; then
+if [ -z "$PROJECT_ROOT" ]; then
   echo "environment variables are not defined"
   exit 1
 fi
@@ -77,8 +79,8 @@ if [ ! -d ./git/logs/ ]; then
   sudo mkdir -p $PROJECT_ROOT/fluent-bit
   cp $fdir/* $PROJECT_ROOT/fluent-bit
 fi
-sudo rm -rf /etc/fluent-bit && sudo mkdir -p /etc/fluent-bit
-sudo ln -s $PROJECT_ROOT/fluent-bit /etc
+sudo rm -rf /etc/fluent-bit
+sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 echoe "Done!!"
 
