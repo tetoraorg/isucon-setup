@@ -18,7 +18,14 @@ fi
 
 sudo systemctl restart nginx
 sudo systemctl restart mysql
+
+pwd=$PWD
+cd $PROJECT_ROOT/go && go build -o $APP_NAME ./...
+cd $pwd
+
 sudo systemctl restart $SERVICE_NAME
 
 slow-on
 restart-fluent-bit
+
+start-pprof

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -s $PROJECT_ROOT/isu0$1/isucon.cnf ]; then
+  echo "moving isucon.cnf..."
+  sudo cp $PROJECT_ROOT/isu0$1/isucon.cnf /etc/mysql/
+fi
