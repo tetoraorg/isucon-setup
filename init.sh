@@ -4,6 +4,7 @@ set -ex
 
 GOLANG_VERSION=1.16.5
 MEMBERS=(tesso57 toshi-pono Ras96)
+SETUP_REPO_DIR=/tmp/isucon-setup
 
 echoe() {
   echo -e "\e[44m$1\e[m"
@@ -15,8 +16,8 @@ if [ -z "$PROJECT_ROOT" ]; then
   exit 1
 fi
 
-# if [ ! -d /tmp/isucon-setup ]; then
-#  if ! git clone git@github.com:tetoraorg/isucon-setup.git /tmp/isucon-setup >/dev/null 2>&1; then
+# if [ ! -d $SETUP_REPO_DIR ]; then
+#  if ! git clone git@github.com:tetoraorg/isucon-setup.git $SETUP_REPO_DIR >/dev/null 2>&1; then
 #    echoe "Failed to clone isucon-setup"
 #    exit 1
 #  fi
@@ -31,7 +32,7 @@ echoe "Done!!"
 echoe "Adding commands for isucon..."
 mkdir -p $PROJECT_ROOT/bin
 if [ ! -d ./git/logs/ ]; then
-  cp /tmp/isucon-setup/bin/* $PROJECT_ROOT/bin/
+  cp -r $SETUP_REPO_DIR/bin/ $PROJECT_ROOT
 fi
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
 echoe "Done!!"
@@ -73,11 +74,9 @@ echoe "Done!!"
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
 if [ ! -d ./git/logs/ ]; then
-  git clone --depth 1 git@github.com:tetoraorg/isucon-dashboard.git /tmp/isucon-dashboard
-  fdir=/tmp/isucon-dashboard/client/fluent-bit
+  fdir=$SETUP_REPO_DIR/fluent-bit
   cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
-  sudo mkdir -p $PROJECT_ROOT/fluent-bit
-  cp $fdir/* $PROJECT_ROOT/fluent-bit
+  cp -r $fdir $PROJECT_ROOT
 fi
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
