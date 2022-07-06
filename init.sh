@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 GOLANG_VERSION=1.16.5
 MEMBERS=(tesso57 toshi-pono Ras96)
@@ -25,7 +25,7 @@ echoe "Done!!"
 echoe "Copying commands and configuration files..."
 if [ -d $PROJECT_ROOT/.git/logs ]; then
   echoe "Skiped!! (project's git repository already exists)"
-else if [ -d $SETUP_REPO_DIR ]; then
+elif [ -d $SETUP_REPO_DIR ]; then
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
   fconf=$SETUP_REPO_DIR/fluent-bit/fluent-bit.conf
