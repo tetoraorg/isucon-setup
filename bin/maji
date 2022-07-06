@@ -13,6 +13,9 @@ Will
 - ソースコードのビルド
 "
 
+sudo systemctl restart nginx
+sudo systemctl restart mysql
+
 slow-off
 
 sudo systemctl stop fluent-bit
