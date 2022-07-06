@@ -16,24 +16,28 @@ if [ -z "$PROJECT_ROOT" ]; then
   exit 1
 fi
 
-# if [ ! -d $SETUP_REPO_DIR ]; then
-#  if ! git clone git@github.com:tetoraorg/isucon-setup.git $SETUP_REPO_DIR >/dev/null 2>&1; then
-#    echoe "Failed to clone isucon-setup"
-#    exit 1
-#  fi
-# fi
-
 # install apt tools
 echoe "Installing apt tools..."
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim
 echoe "Done!!"
 
+# copy commands and configuration files
+echoe "Copying commands and configuration files..."
+if [ -d $SETUP_REPO_DIR ]; then
+  cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
+  cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
+  fconf=$SETUP_REPO_DIR/fluent-bit/fluent-bit.conf
+  cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fconf > /dev/null
+else if [ -d $PROJECT_ROOT/.git/logs ]; then
+  echoe "Skiped!! (project's git repository already exists)"
+else
+  echo "Please clone the repository first."
+  exit 1
+fi
+echoe "Done!!"
+
 # add commands to $PATH
 echoe "Adding commands for isucon..."
-mkdir -p $PROJECT_ROOT/bin
-if [ ! -d ./git/logs/ ]; then
-  cp -r $SETUP_REPO_DIR/bin/ $PROJECT_ROOT
-fi
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
 echoe "Done!!"
 
@@ -73,11 +77,6 @@ echoe "Done!!"
 
 # run fluent-bit as a daemon
 echoe "Running fluent-bit as a daemon"
-if [ ! -d ./git/logs/ ]; then
-  fdir=$SETUP_REPO_DIR/fluent-bit
-  cat $fdir/fluent-bit.conf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fdir/fluent-bit.conf > /dev/null
-  cp -r $fdir $PROJECT_ROOT
-fi
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
