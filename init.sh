@@ -23,13 +23,13 @@ echoe "Done!!"
 
 # copy commands and configuration files
 echoe "Copying commands and configuration files..."
-if [ -d $SETUP_REPO_DIR ]; then
+if [ -d $PROJECT_ROOT/.git/logs ]; then
+  echoe "Skiped!! (project's git repository already exists)"
+else if [ -d $SETUP_REPO_DIR ]; then
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
   fconf=$SETUP_REPO_DIR/fluent-bit/fluent-bit.conf
   cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fconf > /dev/null
-else if [ -d $PROJECT_ROOT/.git/logs ]; then
-  echoe "Skiped!! (project's git repository already exists)"
 else
   echo "Please clone the repository first."
   exit 1
