@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <old score> <new score>"
+  exit 1
+fi
+
+git reset HEAD
+git commit --allow-empty -m "BENCHMARK: $1 -> $2"
+git push

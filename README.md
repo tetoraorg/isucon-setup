@@ -4,6 +4,7 @@
 
 |name|description|
 |-|-|
+|bench-result|スコアの推移をコミットする|
 |exec-db|`exec-db -e "<sql>"`でsqlを実行する|
 |isu|ログの移動、slow-on、nginx/mysql/appの再起動|
 |j|`sudo journalctl`のエイリアス|
