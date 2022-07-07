@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+echo "useful option: -h, -x, -e, -f, -u and more..."
+
+sudo journalctl $@

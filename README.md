@@ -5,12 +5,13 @@
 |name|description|
 |-|-|
 |exec-db|`exec-db -e "<sql>"`でsqlを実行する|
-|jo|`journalctl -u $SERVICE_NAME -xef`|
-|jof|`journalctl -u fluent-bit -xef`|
 |isu|ログの移動、slow-on、nginx/mysql/appの再起動|
+|j|`sudo journalctl`のエイリアス|
+|maji|ログを全部切る|
+|restart-fluent-bit|fluent-bit(ダッシュボードにデータを送るやつ)の再起動。バックグラウンドで実行してくれる|
+|s|`sudo systemctl`のエイリアス|
 |slow-off|slow-query-log切る|
 |slow-on|slow-query-logつける|
-|start-fluent-bit|fluent-bit(ダッシュボードにデータを送るやつ)の起動。バックグラウンドで実行してくれる|
 |start-pprof|pprofの起動。ベンチ回してるときにつける|
 |sync-mysql|mysql設定を同期する|
 |view-pprof|最新のpprofを見る|
