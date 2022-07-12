@@ -1,33 +1,9 @@
 #!/bin/bash
 
-set -e
+set -ex
 
-if [ -s /var/log/nginx/access.log ]; then
-  echo "moving nginx/access.log..."
-  if [ ! -d ~/log/nginx ]; then
-    mkdir -p ~/log/nginx
-  fi
-  sudo mv /var/log/nginx/access.log ~/log/nginx/access.log_$(date "+%Y%m%d-%H%M%S")
-fi
-
-if [ -s /tmp/slow.log ]; then
-  echo "moving mysql/slow.log..."
-  if [ ! -d ~/log/mysql ]; then
-    mkdir -p ~/log/mysql
-  fi
-  sudo mv /tmp/slow.log ~/log/mysql/slow.log_$(date "+%Y%m%d-%H%M%S")
-fi
-
-sudo systemctl restart nginx
-sudo systemctl restart mysql
-
-pwd=$PWD
-cd $PROJECT_ROOT/go && go build -o $APP_NAME ./...
-cd $pwd
-
-sudo systemctl restart $SERVICE_NAME
-
-slow-on
+restart-nginx
+restart-mysql && slow-on
 restart-fluent-bit
-
+restart-app
 start-pprof

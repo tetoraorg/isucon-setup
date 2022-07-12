@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+if [ -s /var/log/nginx/access.log ]; then
+  echo "moving nginx/access.log..."
+  if [ ! -d ~/log/nginx ]; then
+    mkdir -p ~/log/nginx
+  fi
+  sudo mv /var/log/nginx/access.log ~/log/nginx/access.log_$(date "+%Y%m%d-%H%M%S")
+fi
+
+sudo systemctl restart nginx

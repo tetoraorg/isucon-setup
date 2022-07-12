@@ -8,19 +8,14 @@ Check list
 - goのログを切る
 - goのDB待ち
 Will
-- slow-query-logを切る
 - fluent-bitを切る
+- slow-query-logを切る
 - ソースコードのビルド
 "
 
-slow-off
+set -x
 
 sudo systemctl stop fluent-bit
-
-pwd=$PWD
-cd $PROJECT_ROOT/go && go build -o $APP_NAME ./...
-cd $pwd
-
-sudo systemctl restart $SERVICE_NAME
-sudo systemctl restart nginx
-sudo systemctl restart mysql
+restart-nginx
+restart-mysql && slow-off
+restart-app

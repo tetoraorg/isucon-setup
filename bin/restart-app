@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+pwd=$PWD
+cd $PROJECT_ROOT/go && go build -o $APP_NAME ./...
+cd $pwd
+
+sudo systemctl restart $SERVICE_NAME
