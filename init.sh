@@ -18,7 +18,7 @@ fi
 
 # install apt tools
 echoe "Installing apt tools..."
-sudo apt install -y build-essential percona-toolkit htop git curl wget vim
+sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz
 echoe "Done!!"
 
 # copy commands and configuration files
