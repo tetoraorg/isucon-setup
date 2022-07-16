@@ -36,6 +36,11 @@ else
 fi
 echoe "Done!!"
 
+echoe "Linking env file..."
+mv $SERVER_ENV_PATH $PROJECT_ROOT/isu$SERVER_NUMBER/
+ln -s $PROJECT_ROOT/isu$SERVER_NUMBER $SERVER_ENV_PATH
+echoe "Done!!"
+
 # add commands to $PATH
 echoe "Adding commands for isucon..."
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc

@@ -25,6 +25,8 @@ echo "export PROJECT_REPO_URL=hoge" >> ~/.bashrc
 echo "export APP_NAME=hoge" >> ~/.bashrc
 echo "export SERVICE_NAME=hoge" >> ~/.bashrc
 echo "export DASHBOARD_HOST=hoge" >> ~/.bashrc
+echo "export SERVER_ENV_PATH=hoge" >> ~/.bashrc
+echo "export SERVER_NUMBER=1" >> ~/.bashrc
 source ~/.bashrc
 ```
 
