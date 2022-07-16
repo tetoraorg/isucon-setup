@@ -2,7 +2,7 @@
 
 set -e
 
-GOLANG_VERSION=1.16.5
+GOLANG_VERSION=latest
 MEMBERS=(tesso57 toshi-pono Ras96)
 SETUP_REPO_DIR=/tmp/isucon-setup
 
