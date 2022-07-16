@@ -16,12 +16,12 @@ if [ -z "$PROJECT_ROOT" ]; then
   exit 1
 fi
 
-# install apt tools
+# aptからインストール
 echoe "Installing apt tools..."
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz
 echoe "Done!!"
 
-# copy commands and configuration files
+# このレポジトリから設定ファイルをコピー
 echoe "Copying commands and configuration files..."
 if [ -d $PROJECT_ROOT/.git/logs ]; then
   echoe "Skiped!! (project's git repository already exists)"
@@ -36,17 +36,19 @@ else
 fi
 echoe "Done!!"
 
+# env.shにシンボリックリンクを貼る
+# 既にあったらエラーを吐いて終了する
 echoe "Linking env file..."
 mv $SERVER_ENV_PATH $PROJECT_ROOT/isu$SERVER_NUMBER/
 ln -s $PROJECT_ROOT/isu$SERVER_NUMBER $SERVER_ENV_PATH
 echoe "Done!!"
 
-# add commands to $PATH
+# 用意した諸コマンドをPATHに追加
 echoe "Adding commands for isucon..."
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
 echoe "Done!!"
 
-# install asdf
+# asdfをインストール
 echoe "Installing asdf..."
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
@@ -54,7 +56,7 @@ echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
 source ~/.bashrc
 echoe "Done!!"
 
-# install golang
+# asdfからgoをインストール
 echoe "Installing golang..."
 if ! type asdf >/dev/null 2>&1; then
   PATH=$HOME/.asdf/bin:$PATH
@@ -64,7 +66,7 @@ asdf install golang $GOLANG_VERSION
 asdf global golang $GOLANG_VERSION
 echoe "Done!!"
 
-# install fluent-bit
+# aptかソースからfluent-bitをインストール
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 echoe "Installing fluent-bit..."
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
@@ -80,14 +82,14 @@ else
 fi
 echoe "Done!!"
 
-# run fluent-bit as a daemon
+# fluent-bitを常時動かす
 echoe "Running fluent-bit as a daemon"
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 echoe "Done!!"
 
-# sync public keys
+# 公開鍵を登録
 echoe "Syncing public keys..."
 mkdir -p ~/.ssh
 for member in ${MEMBERS[@]}; do
@@ -95,7 +97,7 @@ for member in ${MEMBERS[@]}; do
 done
 echoe "Done!!"
 
-# initialize git
+# Gitの設定
 echoe "Initializing git..."
 git config --global user.name "server"
 git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -108,4 +110,5 @@ cd $PROJECT_ROOT \
 echoe "Done!!"
 echoe "Please push your code to Github."
 
+# 最後に設定ファイルを読み込む
 source ~/.bashrc
