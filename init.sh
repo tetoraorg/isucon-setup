@@ -40,7 +40,7 @@ echoe "Done!!"
 # 既にあったらエラーを吐いて終了する
 echoe "Linking env file..."
 mv $SERVER_ENV_PATH $PROJECT_ROOT/isu$SERVER_NUMBER/
-ln -s $PROJECT_ROOT/isu$SERVER_NUMBER $SERVER_ENV_PATH
+ln -s $PROJECT_ROOT/isu$SERVER_NUMBER/env.sh $SERVER_ENV_PATH
 echoe "Done!!"
 
 # 用意した諸コマンドをPATHに追加
