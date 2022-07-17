@@ -29,7 +29,7 @@ elif [ -d $SETUP_REPO_DIR ]; then
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
   fconf=$PROJECT_ROOT/fluent-bit/fluent-bit.conf
-  cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fconf > /dev/null
+  cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" > $fconf
 else
   echo "Please clone the repository first."
   exit 1
