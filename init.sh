@@ -70,7 +70,7 @@ echoe "Done!!"
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 echoe "Installing fluent-bit..."
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
-  git clone --depth 1 git@github.com:fluent/fluent-bit.git /tmp/fluent-bit
+  git clone --depth 1 https://github.com/fluent/fluent-bit.git /tmp/fluent-bit
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
