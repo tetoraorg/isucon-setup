@@ -28,7 +28,7 @@ if [ -d $PROJECT_ROOT/.git/logs ]; then
 elif [ -d $SETUP_REPO_DIR ]; then
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
-  fconf=$SETUP_REPO_DIR/fluent-bit/fluent-bit.conf
+  fconf=$PROJECT_ROOT/fluent-bit/fluent-bit.conf
   cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" | tee $fconf > /dev/null
 else
   echo "Please clone the repository first."
