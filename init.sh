@@ -2,15 +2,18 @@
 
 set -eux
 
+SETUP_REPO_DIR=/tmp/isucon-setup
+GOLANG_VERSION=latest
+MEMBERS=(tesso57 toshi-pono Ras96)
+
 # 環境変数が設定されてなかったら終了
-echo "$SETUP_REPO_DIR $GOLANG_VERSION $MEMBERS" > /dev/null
 echo "PROJECT_ROOT=$PROJECT_ROOT" >> ~/.bashrc
 echo "REPO_SSH_URL=$REPO_SSH_URL" >> ~/.bashrc
 echo "APP_NAME=$APP_NAME" >> ~/.bashrc
 echo "SERVICE_NAME=$SERVICE_NAME" >> ~/.bashrc
 echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
 echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
-echo "SERVER_NUMB=$SERVER_NUMB" >> ~/.bashrc
+echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 
 # aptからインストール
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz

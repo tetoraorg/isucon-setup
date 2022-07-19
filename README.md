@@ -22,13 +22,13 @@
 NOTE: 事前に<https://github.com/settings/tokens>からPersonal Access Tokenを作成しておく(このレポジトリのclone時に用いる)
 
 ```sh
-PROJECT_ROOT=~/webapp
-REPO_SSH_URL=git@github.com:tetoraorg/isucon12-qualify.git
-APP_NAME=isuxxx
-SERVICE_NAME=$APP_NAME.go.service
-DASHBOARD_HOST=127.0.0.1
-SERVER_ENV_PATH=~/env.sh
-SERVER_NUMBER=01
+export PROJECT_ROOT=~/webapp
+export REPO_SSH_URL=git@github.com:tetoraorg/isucon12-qualify.git
+export APP_NAME=isuxxx
+export SERVICE_NAME=$APP_NAME.go.service
+export DASHBOARD_HOST=127.0.0.1
+export SERVER_ENV_PATH=~/env.sh
+export SERVER_NUMBER=01
 ```
 
 2台目以降の設定がしやすいようにメンバーに上のスクリプトを投げる
@@ -43,5 +43,5 @@ ssh-keygen && cat ~/.ssh/id_rsa.pub
 ```sh
 git clone https://github.com/tetoraorg/isucon-setup.git /tmp/isucon-setup
 cd /tmp/isucon-setup
-make
+./init.sh
 ```
