@@ -43,20 +43,17 @@ if [ ! -d $PROJECT_ROOT/.git ]; then
   cd $PROJECT_ROOT
   git init
   git remote add origin $REPO_SSH_URL -f
-  git reset --hard origin/main
+  [ -d $PROJECT_ROOT/.git/logs ] && git reset --hard origin/main
 fi
 
 # このレポジトリから設定ファイルをコピー
 if [ -d $PROJECT_ROOT/.git/logs ]; then
   echo "Skiped!! (project's git repository already exists)"
-elif [ -d $SETUP_REPO_DIR ]; then
+else
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
   fconf=$PROJECT_ROOT/fluent-bit/fluent-bit.conf
   cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" > $fconf
-else
-  echo "Please clone the repository first."
-  exit 1
 fi
 
 # 用意した諸コマンドをPATHに追加
