@@ -43,5 +43,5 @@ ssh-keygen && cat ~/.ssh/id_rsa.pub
 ```sh
 git clone https://github.com/tetoraorg/isucon-setup.git /tmp/isucon-setup
 cd /tmp/isucon-setup
-./init.sh
+make
 ```

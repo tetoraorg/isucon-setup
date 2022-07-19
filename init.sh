@@ -2,11 +2,8 @@
 
 set -eux
 
-GOLANG_VERSION=latest
-MEMBERS=(tesso57 toshi-pono Ras96)
-SETUP_REPO_DIR=/tmp/isucon-setup
-
 # 環境変数が設定されてなかったら終了
+echo "$SETUP_REPO_DIR $GOLANG_VERSION $MEMBERS" > /dev/null
 echo "PROJECT_ROOT=$PROJECT_ROOT" >> ~/.bashrc
 echo "REPO_SSH_URL=$REPO_SSH_URL" >> ~/.bashrc
 echo "APP_NAME=$APP_NAME" >> ~/.bashrc
