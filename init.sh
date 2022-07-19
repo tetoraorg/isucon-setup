@@ -41,6 +41,7 @@ mv ~/.bashrc $confdir
 ln -sf $confdir/.bashrc ~/.bashrc
 
 # asdfをインストール
+rm -rf ~/.asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
 echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
