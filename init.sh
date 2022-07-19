@@ -8,7 +8,7 @@ SETUP_REPO_DIR=/tmp/isucon-setup
 
 # 環境変数が設定されてなかったら終了
 echo "PROJECT_ROOT=$PROJECT_ROOT" >> ~/.bashrc
-echo "PROJECT_REPO_URL=$PROJECT_REPO_URL" >> ~/.bashrc
+echo "REPO_SSH_URL=$REPO_SSH_URL" >> ~/.bashrc
 echo "APP_NAME=$APP_NAME" >> ~/.bashrc
 echo "SERVICE_NAME=$SERVICE_NAME" >> ~/.bashrc
 echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
@@ -87,7 +87,7 @@ git config --global push.default current
 git config --global init.defaultbranch main
 cd $PROJECT_ROOT \
   && git init \
-  && git remote add origin $PROJECT_REPO_URL
+  && git remote add origin $REPO_SSH_URL
 
 # 最後に設定ファイルを読み込む
 source ~/.bashrc

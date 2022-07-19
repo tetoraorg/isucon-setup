@@ -23,7 +23,7 @@ NOTE: 事前に<https://github.com/settings/tokens>からPersonal Access Token�
 
 ```sh
 PROJECT_ROOT=~/webapp
-PROJECT_REPO_URL=git@github.com:tetoraorg/isucon12-qualify.git
+REPO_SSH_URL=git@github.com:tetoraorg/isucon12-qualify.git
 APP_NAME=isuxxx
 SERVICE_NAME=$APP_NAME.go.service
 DASHBOARD_HOST=127.0.0.1
