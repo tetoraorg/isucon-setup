@@ -37,7 +37,6 @@ fi
 echoe "Done!!"
 
 # env.shにシンボリックリンクを貼る
-# 既にあったらエラーを吐いて終了する
 echoe "Linking env file..."
 mv $SERVER_ENV_PATH $PROJECT_ROOT/isu$SERVER_NUMBER/
 ln -s $PROJECT_ROOT/isu$SERVER_NUMBER/env.sh $SERVER_ENV_PATH
