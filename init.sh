@@ -40,6 +40,8 @@ confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
 mkdir -p $confdir
 mv $SERVER_ENV_PATH $confdir
 ln -sf $confdir/env.sh $SERVER_ENV_PATH
+mv ~/.bashrc $confdir
+ln -sf $confdir/.bashrc ~/.bashrc
 
 # asdfをインストール
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
