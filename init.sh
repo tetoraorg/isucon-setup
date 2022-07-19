@@ -96,6 +96,6 @@ fi
 # fluent-bitを常時動かす
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
-# restart-fluent-bit
+restart-fluent-bit
 
 echo "Done!!! (you should restart shell & push diff to github)"
