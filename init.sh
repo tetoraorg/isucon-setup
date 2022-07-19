@@ -18,6 +18,27 @@ echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 # aptからインストール
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz cmake flex bison
 
+# 公開鍵を登録
+mkdir -p ~/.ssh
+for member in ${MEMBERS[@]}; do
+  curl https://github.com/$member.keys >> ~/.ssh/authorized_keys
+done
+
+# Gitの設定
+git config --global user.name "server"
+git config --global user.email "github-actions[bot]@users.noreply.github.com"
+git config --global core.editor "vim"
+git config --global push.default current
+git config --global init.defaultbranch main
+git config --global fetch.prune=true
+git config --global alias.lo "log --oneline"
+cd $PROJECT_ROOT
+git init
+git branch -M main
+git remote add origin $REPO_SSH_URL
+git fetch origin
+git reset --hard origin/main
+
 # このレポジトリから設定ファイルをコピー
 if [ -d $PROJECT_ROOT/.git/logs ]; then
   echo "Skiped!! (project's git repository already exists)"
@@ -74,21 +95,7 @@ sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 
-# 公開鍵を登録
-mkdir -p ~/.ssh
-for member in ${MEMBERS[@]}; do
-  curl https://github.com/$member.keys >> ~/.ssh/authorized_keys
-done
-
-# Gitの設定
-git config --global user.name "server"
-git config --global user.email "github-actions[bot]@users.noreply.github.com"
-git config --global core.editor "vim"
-git config --global push.default current
-git config --global init.defaultbranch main
-cd $PROJECT_ROOT \
-  && git init \
-  && git remote add origin $REPO_SSH_URL
-
 # 最後に設定ファイルを読み込む
 source ~/.bashrc
+
+echo "Done!!! (Push diff to github)"
