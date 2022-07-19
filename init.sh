@@ -1,16 +1,19 @@
 #!/bin/bash
 
-set -ex
+set -eux
 
 GOLANG_VERSION=latest
 MEMBERS=(tesso57 toshi-pono Ras96)
 SETUP_REPO_DIR=/tmp/isucon-setup
 
-source ~/.bashrc
-if [ -z "$PROJECT_ROOT" ]; then
-  echo "environment variables are not defined"
-  exit 1
-fi
+# 環境変数が設定されてなかったら終了
+echo "PROJECT_ROOT=$PROJECT_ROOT" >> ~/.bashrc
+echo "PROJECT_REPO_URL=$PROJECT_REPO_URL" >> ~/.bashrc
+echo "APP_NAME=$APP_NAME" >> ~/.bashrc
+echo "SERVICE_NAME=$SERVICE_NAME" >> ~/.bashrc
+echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
+echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
+echo "SERVER_NUMB=$SERVER_NUMB" >> ~/.bashrc
 
 # aptからインストール
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz
@@ -28,12 +31,15 @@ else
   exit 1
 fi
 
-# env.shにシンボリックリンクを貼る
-mv $SERVER_ENV_PATH $PROJECT_ROOT/isu$SERVER_NUMBER/
-ln -s $PROJECT_ROOT/isu$SERVER_NUMBER/env.sh $SERVER_ENV_PATH
-
 # 用意した諸コマンドをPATHに追加
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
+source ~/.bashrc
+
+# env.sh,.bashrcにシンボリックリンクを貼る
+confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
+mkdir -p $confdir
+mv $SERVER_ENV_PATH $confdir
+ln -sf $confdir/env.sh $SERVER_ENV_PATH
 
 # asdfをインストール
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
@@ -42,9 +48,6 @@ echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
 source ~/.bashrc
 
 # asdfからgoをインストール
-if ! type asdf >/dev/null 2>&1; then
-  PATH=$HOME/.asdf/bin:$PATH
-fi
 asdf plugin add golang
 asdf install golang $GOLANG_VERSION
 asdf global golang $GOLANG_VERSION
