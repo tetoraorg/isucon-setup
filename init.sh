@@ -15,6 +15,8 @@ echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
 echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
 echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 
+set +u
+
 # aptからインストール
 sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz cmake flex bison
 
@@ -30,14 +32,15 @@ git config --global user.email "github-actions[bot]@users.noreply.github.com"
 git config --global core.editor "vim"
 git config --global push.default current
 git config --global init.defaultbranch main
-git config --global fetch.prune=true
+git config --global fetch.prune true
 git config --global alias.lo "log --oneline"
-cd $PROJECT_ROOT
-git init
-git branch -M main
-git remote add origin $REPO_SSH_URL
-git fetch origin
-git reset --hard origin/main
+if [ ! -d $PROJECT_ROOT/.git ]; then
+  cd $PROJECT_ROOT
+  git init
+  git branch -M main
+  git remote add origin $REPO_SSH_URL -f
+  git reset --hard origin/main
+fi
 
 # このレポジトリから設定ファイルをコピー
 if [ -d $PROJECT_ROOT/.git/logs ]; then
@@ -54,7 +57,7 @@ fi
 
 # 用意した諸コマンドをPATHに追加
 echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
-source ~/.bashrc
+PATH=$PROJECT_ROOT/bin:$PATH
 
 # env.sh,.bashrcにシンボリックリンクを貼る
 confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
@@ -69,7 +72,7 @@ if [ ! -d ~/.asdf ]; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
   echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
   echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
-  source ~/.bashrc
+  source ~/.asdf/asdf.sh
 
   # asdfからgoをインストール
   asdf plugin add golang
@@ -80,7 +83,7 @@ fi
 # aptかソースからfluent-bitをインストール
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
-  [ !d /tmp/fluent-bit ] && git clone --depth 1 https://github.com/fluent/fluent-bit.git /tmp/fluent-bit
+  [ ! -d /tmp/fluent-bit ] && git clone --depth 1 https://github.com/fluent/fluent-bit.git /tmp/fluent-bit
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
@@ -93,9 +96,6 @@ fi
 # fluent-bitを常時動かす
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
-restart-fluent-bit
+# restart-fluent-bit
 
-# 最後に設定ファイルを読み込む
-source ~/.bashrc
-
-echo "Done!!! (Push diff to github)"
+echo "Done!!! (you should restart shell & push diff to github)"
