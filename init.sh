@@ -15,6 +15,11 @@ echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
 echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
 echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 
+# 存在確認
+[ ! -d $SETUP_REPO_DIR ] && echo "SETUP_REPO_DIR is not found" && exit 1
+[ ! -d $PROJECT_ROOT ] && echo "PROJECT_ROOT is not found" && exit 1
+[ ! -f $SERVER_ENV_PATH ] && echo "SERVER_ENV_PATH is not found" && exit 1
+
 set +u
 
 # aptからインストール
@@ -37,7 +42,6 @@ git config --global alias.lo "log --oneline"
 if [ ! -d $PROJECT_ROOT/.git ]; then
   cd $PROJECT_ROOT
   git init
-  git branch -M main
   git remote add origin $REPO_SSH_URL -f
   git reset --hard origin/main
 fi
