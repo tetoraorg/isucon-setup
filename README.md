@@ -22,14 +22,13 @@
 NOTE: 事前に<https://github.com/settings/tokens>からPersonal Access Tokenを作成しておく(このレポジトリのclone時に用いる)
 
 ```sh
-echo "export PROJECT_ROOT=hoge" >> ~/.bashrc
-echo "export PROJECT_REPO_URL=hoge" >> ~/.bashrc
-echo "export APP_NAME=hoge" >> ~/.bashrc
-echo "export SERVICE_NAME=hoge" >> ~/.bashrc
-echo "export DASHBOARD_HOST=hoge" >> ~/.bashrc
-echo "export SERVER_ENV_PATH=hoge" >> ~/.bashrc
-echo "export SERVER_NUMBER=1" >> ~/.bashrc
-source ~/.bashrc
+PROJECT_ROOT=~/webapp
+PROJECT_REPO_URL=git@github.com:tetoraorg/isucon12-qualify.git
+APP_NAME=isuxxx
+SERVICE_NAME=$APP_NAME.go.service
+DASHBOARD_HOST=127.0.0.1
+SERVER_ENV_PATH=~/env.sh
+SERVER_NUMBER=01
 ```
 
 2台目以降の設定がしやすいようにメンバーに上のスクリプトを投げる
