@@ -10,4 +10,6 @@ if [ -s /tmp/slow.log ]; then
   sudo mv /tmp/slow.log ~/log/mysql/slow.log_$(date "+%Y%m%d-%H%M%S")
 fi
 
+sync-mysql
+
 sudo systemctl restart mysql
