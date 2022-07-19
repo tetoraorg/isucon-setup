@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eux
+set -aeux
 
 SETUP_REPO_DIR=/tmp/isucon-setup
 GOLANG_VERSION=latest
@@ -16,7 +16,7 @@ echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
 echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 
 # aptからインストール
-sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz
+sudo apt install -y build-essential percona-toolkit htop git curl wget vim graphviz cmake flex bison
 
 # このレポジトリから設定ファイルをコピー
 if [ -d $PROJECT_ROOT/.git/logs ]; then
@@ -38,33 +38,33 @@ source ~/.bashrc
 # env.sh,.bashrcにシンボリックリンクを貼る
 confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
 mkdir -p $confdir
-mv $SERVER_ENV_PATH $confdir
+[ ! -L $SERVER_ENV_PATH ] && mv $SERVER_ENV_PATH $confdir
 ln -sf $confdir/env.sh $SERVER_ENV_PATH
-mv ~/.bashrc $confdir
+[ ! -L ~/.bashrc ] && mv ~/.bashrc $confdir
 ln -sf $confdir/.bashrc ~/.bashrc
 
 # asdfをインストール
-rm -rf ~/.asdf
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
-echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
-source ~/.bashrc
+if [ ! -d ~/.asdf ]; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  echo "source ~/.asdf/asdf.sh" >> ~/.bashrc
+  echo "source ~/.asdf/completions/asdf.bash" >> ~/.bashrc
+  source ~/.bashrc
 
-# asdfからgoをインストール
-asdf plugin add golang
-asdf install golang $GOLANG_VERSION
-asdf global golang $GOLANG_VERSION
+  # asdfからgoをインストール
+  asdf plugin add golang
+  asdf install golang $GOLANG_VERSION
+  asdf global golang $GOLANG_VERSION
+fi
 
 # aptかソースからfluent-bitをインストール
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
-  git clone --depth 1 https://github.com/fluent/fluent-bit.git /tmp/fluent-bit
+  [ !d /tmp/fluent-bit ] && git clone --depth 1 https://github.com/fluent/fluent-bit.git /tmp/fluent-bit
   cd /tmp/fluent-bit/build
   cmake ../ -DFLB_CONFIG_YAML=Off
   make
   sudo cp /tmp/fluent-bit/build/bin/fluent-bit /usr/local/bin
 else
-  sudo apt install -y cmake flex bison
   curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
   sudo cp /opt/fluent-bit/bin/fluent-bit /usr/local/bin
 fi
