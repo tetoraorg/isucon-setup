@@ -47,13 +47,10 @@ if [ ! -d $PROJECT_ROOT/.git ]; then
 fi
 
 # このレポジトリから設定ファイルをコピー
-if [ -d $PROJECT_ROOT/.git/logs ]; then
-  echo "Skiped!! (project's git repository already exists)"
-else
+if [ ! -d $PROJECT_ROOT/.git/logs ]; then
   cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
   cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
-  fconf=$PROJECT_ROOT/fluent-bit/fluent-bit.conf
-  cat $fconf | sed -e "s/\${DASHBOARD_HOST}/$DASHBOARD_HOST/" > $fconf
+  sed -i "1i@SET dashboard_host=$DASHBOARD_HOST" $PROJECT_ROOT/fluent-bit/fluent-bit.conf
 fi
 
 # 用意した諸コマンドをPATHに追加
