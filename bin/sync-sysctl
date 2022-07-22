@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ -s $PROJECT_ROOT/etc/100-isucon.conf ]; then
+  echo "loading sysctl settings ..."
+  sudo cp $PROJECT_ROOT/etc/100-isucon.conf /etc/sysctl.d
+  sudo sysctl -p /etc/sysctl.d/100-isucon.conf
+fi

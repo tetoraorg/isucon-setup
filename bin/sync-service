@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ -s $PROJECT_ROOT/etc/$SERVICE_NAME ]; then
+  echo "moving service file ..."
+  sudo cp $PROJECT_ROOT/etc/$SERVICE_NAME /etc/systemd/system
+  sudo systemctl daemon-reload
+fi
