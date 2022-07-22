@@ -1,4 +1,0 @@
-#!/bin/bash
-cd ~
-wget http://mysqltuner.pl/ -O mysqltuner.pl
-cd -
