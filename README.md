@@ -18,7 +18,6 @@
 | sync-service-file  | アプリのサービスファイルを同期する                                                       |
 | sync-sysctl        | カーネルパラメータを同期する                                                            |
 | view-pprof         | 最新のpprofを見る                                                                      |
-| install-mysql-tuner| [MYSQLTUner-perl](https://github.com/major/MySQLTuner-perl)をインストールする           |
 | check-db           | [MYSQLTUner-perl](https://github.com/major/MySQLTuner-perl)を実行する                  |
 
 ### setup
