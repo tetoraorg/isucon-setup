@@ -15,6 +15,11 @@ echo "DASHBOARD_HOST=$DASHBOARD_HOST" >> ~/.bashrc
 echo "SERVER_ENV_PATH=$SERVER_ENV_PATH" >> ~/.bashrc
 echo "SERVER_NUMBER=$SERVER_NUMBER" >> ~/.bashrc
 
+# その他bashrcの設定
+echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
+echo "export GOPATH=\"\"" >> ~/.bashrc
+echo "export GOROOT=\"\"" >> ~/.bashrc
+
 # 存在確認
 [ ! -d $SETUP_REPO_DIR ] && echo "SETUP_REPO_DIR is not found" && exit 1
 [ ! -d $PROJECT_ROOT ] && echo "PROJECT_ROOT is not found" && exit 1
@@ -31,6 +36,11 @@ for member in ${MEMBERS[@]}; do
   curl https://github.com/$member.keys >> ~/.ssh/authorized_keys
 done
 
+# isucon-setupから設定ファイルをコピー
+cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
+cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
+sed -i "1i@SET dashboard_host=$DASHBOARD_HOST" $PROJECT_ROOT/fluent-bit/fluent-bit.conf
+
 # Gitの設定
 git config --global user.name "server"
 git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -39,23 +49,16 @@ git config --global push.default current
 git config --global init.defaultbranch main
 git config --global fetch.prune true
 git config --global alias.lo "log --oneline"
+git branch -M main
 if [ ! -d $PROJECT_ROOT/.git ]; then
   cd $PROJECT_ROOT
   git init
-  git remote add origin $REPO_SSH_URL -f
-  [ -d $PROJECT_ROOT/.git/logs ] && git reset --hard origin/main
+  git remote add origin $REPO_SSH_URL
+  if [ -d $PROJECT_ROOT/.git/logs ]; then
+    git fetch origin
+    git reset --hard origin/main
+  fi
 fi
-
-# このレポジトリから設定ファイルをコピー
-if [ ! -d $PROJECT_ROOT/.git/logs ]; then
-  cp -r $SETUP_REPO_DIR/bin $PROJECT_ROOT
-  cp -r $SETUP_REPO_DIR/fluent-bit $PROJECT_ROOT
-  sed -i "1i@SET dashboard_host=$DASHBOARD_HOST" $PROJECT_ROOT/fluent-bit/fluent-bit.conf
-fi
-
-# 用意した諸コマンドをPATHに追加
-echo "export PATH=$PROJECT_ROOT/bin:\$PATH" >> ~/.bashrc
-PATH=$PROJECT_ROOT/bin:$PATH
 
 # env.sh,.bashrcにシンボリックリンクを貼る
 confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
@@ -94,7 +97,9 @@ fi
 # fluent-bitを常時動かす
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
-restart-fluent-bit
+$PROJECT_ROOT/bin/restart-fluent-bit
+
+set +x
 
 # MySQLTuner-perl をインストール
 if [ -d /usr/local/src/MySQLTuner-perl ]; then
@@ -105,3 +110,7 @@ else
 fi
 
 echo "Done!!! (you should restart shell & push diff to github)"
+echo ""
+echo "- source ~/.bashrc"
+echo "- vim .gitignore"
+echo "- git commit -a -m 'initial commit'"
