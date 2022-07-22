@@ -63,10 +63,14 @@ fi
 # env.sh,.bashrcにシンボリックリンクを貼る
 confdir=$PROJECT_ROOT/isu$SERVER_NUMBER
 mkdir -p $confdir
-[ ! -L $SERVER_ENV_PATH ] && mv $SERVER_ENV_PATH $confdir
-ln -sf $confdir/env.sh $SERVER_ENV_PATH
-[ ! -L ~/.bashrc ] && mv ~/.bashrc $confdir
-ln -sf $confdir/.bashrc ~/.bashrc
+if [ ! -L $SERVER_ENV_PATH ]; then
+  mv $SERVER_ENV_PATH $confdir
+  ln -sf $confdir/env.sh $SERVER_ENV_PATH
+fi
+if [ ! -L ~/.bashrc ]; then
+  mv ~/.bashrc $confdir
+  ln -sf $confdir/.bashrc ~/.bashrc
+fi
 
 # asdfをインストール
 if [ ! -d ~/.asdf ]; then
@@ -99,15 +103,13 @@ sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 $PROJECT_ROOT/bin/restart-fluent-bit
 
-set +x
-
 # MySQLTuner-perl をインストール
-if [ -d /usr/local/src/MySQLTuner-perl ]; then
-  echo "Skiped!! (MySQLTuner-perl is already installed)"
-else 
+if [ ! -d /usr/local/src/MySQLTuner-perl ]; then
   sudo git clone --depth 1 -b master https://github.com/major/MySQLTuner-perl.git /usr/local/src/MySQLTuner-perl
-  sudo ln -s /usr/local/src/MySQLTuner-perl/mysqltuner.pl /usr/local/bin/mysqltuner.pl
+  sudo ln -sf /usr/local/src/MySQLTuner-perl/mysqltuner.pl /usr/local/bin/mysqltuner.pl
 fi
+
+set +x
 
 echo "Done!!! (you should restart shell & push diff to github)"
 echo ""
