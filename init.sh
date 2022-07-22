@@ -100,7 +100,7 @@ sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 restart-fluent-bit
 
 # MySQLTuner-perl をインストール
-if [ -d /usr/local/src/MySQLTuner-perl]; then
+if [ -d /usr/local/src/MySQLTuner-perl ]; then
   echo "Skiped!! (MySQLTuner-perl is already installed)"
 else 
   sudo git clone --depth 1 -b master https://github.com/major/MySQLTuner-perl.git /usr/local/src/MySQLTuner-perl
