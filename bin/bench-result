@@ -2,11 +2,9 @@
 
 set -e
 
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 <old score> <new score>"
-  exit 1
-fi
+read -p "old score: " old_score
+read -p "new score: " new_score
 
 git reset HEAD
-git commit --allow-empty -m "BENCHMARK: $1 -> $2"
+git commit --allow-empty -m "BENCHMARK: $old_score -> $new_score"
 git push
