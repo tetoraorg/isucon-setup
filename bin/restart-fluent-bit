@@ -6,5 +6,4 @@ set -e
 
 # sudo systemctl restart fluent-bit
 
-sudo fluent-bit -c $PROJECT_ROOT/fluent-bit/fluen
-t-bit.conf
+sudo fluent-bit -c $PROJECT_ROOT/fluent-bit/fluent-bit.conf
