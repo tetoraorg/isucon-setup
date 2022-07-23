@@ -49,7 +49,7 @@ git config --global push.default current
 git config --global init.defaultbranch main
 git config --global fetch.prune true
 git config --global alias.lo "log --oneline"
-git branch -M main
+# git branch -M main
 if [ ! -d $PROJECT_ROOT/.git ]; then
   cd $PROJECT_ROOT
   git init
@@ -85,6 +85,12 @@ if [ ! -d ~/.asdf ]; then
   asdf global golang $GOLANG_VERSION
 fi
 
+# MySQLTuner-perl をインストール
+if [ ! -d /usr/local/src/MySQLTuner-perl ]; then
+  sudo git clone --depth 1 -b master https://github.com/major/MySQLTuner-perl.git /usr/local/src/MySQLTuner-perl
+  sudo ln -sf /usr/local/src/MySQLTuner-perl/mysqltuner.pl /usr/local/bin/mysqltuner.pl
+fi
+
 # aptかソースからfluent-bitをインストール
 # TODO: https://github.com/fluent/fluent-bit/issues/5628
 if [ "$(cat /etc/issue | awk '{print $2}')" == "22.04" ]; then
@@ -102,12 +108,6 @@ fi
 sudo rm -rf /etc/fluent-bit
 sudo ln -sf $PROJECT_ROOT/fluent-bit /etc
 $PROJECT_ROOT/bin/restart-fluent-bit
-
-# MySQLTuner-perl をインストール
-if [ ! -d /usr/local/src/MySQLTuner-perl ]; then
-  sudo git clone --depth 1 -b master https://github.com/major/MySQLTuner-perl.git /usr/local/src/MySQLTuner-perl
-  sudo ln -sf /usr/local/src/MySQLTuner-perl/mysqltuner.pl /usr/local/bin/mysqltuner.pl
-fi
 
 set +x
 
