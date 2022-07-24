@@ -4,7 +4,7 @@
 
 | name               | description                                                                            |
 | ------------------ | -------------------------------------------------------------------------------------- |
-| bench-result       | スコアの推移をコミットする                                                             |
+| b                  | スコアの推移をコミットする                                                             |
 | exec-db            | `exec-db -e "<sql>"`でsqlを実行する                                                    |
 | isu                | ログの移動、slow-on、nginx/mysql/appの再起動                                           |
 | j                  | `sudo journalctl`のエイリアス                                                          |
@@ -15,8 +15,8 @@
 | slow-on            | slow-query-logつける                                                                   |
 | start-pprof        | pprofの起動。ベンチ回してるときにつける                                                |
 | sync-mysql         | mysql設定を同期する                                                                    |
-| sync-service-file  | アプリのサービスファイルを同期する                                                       |
-| sync-sysctl        | カーネルパラメータを同期する                                                            |
+| sync-service-file  | アプリのサービスファイルを同期する                                                     |
+| sync-sysctl        | カーネルパラメータを同期する                                                           |
 | view-pprof         | 最新のpprofを見る                                                                      |
 | check-db           | [MYSQLTUner-perl](https://github.com/major/MySQLTuner-perl)を実行する                  |
 
